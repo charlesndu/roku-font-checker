@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="HomeScene" extends="Scene" initialFocus="fontSelector">
+    <script type="text/brightscript" uri="pkg:/components/HomeScene.brs"/>
+    <interface>
+        <field id="fontlist" type="array" />
+    </interface>
+    <children>
+        <Group>
+            <Rectangle id="rectangleMain"
+                width="1920" height="1080" color="#bbb" translation="[0, 0]">
+                <Rectangle color="#ffffff" height="1059" width="1899" translation="[13, 13]">
+                    <LabelList
+                        id="fontSelector" translation="[535,110]" itemSize="[450,48]" numRows="1" vertFocusAnimationStyle="fixedFocusWrap">
+                            <ContentNode id="fontListContentNode" role="content"></ContentNode>
+                    </LabelList>
+                    <Label id="mainTextLabel"
+                        text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                        color="#000000" height="0" width="1500" visible="true" horizAlign="center" />
+
+                    <Button text="Adjust size" id="selectLabelListItem" textColor="#000000" focusedTextColor="#000000"
+                        height="95" minWidth="350" translation="[1100, 92]" />
+
+                    <Button text="-" id="decFontSizeButton" textColor="#000000" focusedTextColor="#000000"
+                        height="95" minWidth="150" maxWidth="150" />
+
+                    <LayoutGroup id="displayedSizeGroup" horizAlignment="center">
+                        <Label id="fontSizeDisplay" color="#444444" height="70" width="125" horizAlign="center" vertAlign="center" />
+                        <Label id="currentFontLabel" text="Font Size" color="#999999" width="125" height="25" horizAlign="center" />
+                    </LayoutGroup>
+
+                    <Button text="+" id="incFontSizeButton" textColor="#000000" focusedTextColor="#000000"
+                        height="95" minWidth="150" maxWidth="150" />
+
+                    <Button id="exitAppButton"
+                        text="Exit" textColor="#000000" focusedTextColor="#000000" minWidth="200" maxWidth="500" />
+
+                    <Label id="minFontReachedMsg" color="#b30839" text="Minimum allowed font size reached" translation="[900, 1000]" visible="false" />
+                </Rectangle>
+            </Rectangle>
+        </Group>
+    </children>
+</component>
