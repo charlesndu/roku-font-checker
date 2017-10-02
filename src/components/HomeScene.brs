@@ -16,7 +16,7 @@ sub init()
 
     ' Assign position translation variables
     centerx = (1920 - labelRect.width) / 2
-    centery = (1080 - labelRect.height) / 3
+    centery = (1080 - labelRect.height) / 2.3
 
     ' Apply position translation on the label
     m.targetText.translation = [ centerx, centery ]
@@ -28,33 +28,28 @@ sub init()
     m.fontSelector = m.top.findNode("fontSelector")
 
     buttonDims = m.decreaseButton.boundingRect()
-    widthOffset = buttonDims.width * 2
+    widthOffset = buttonDims.width
 
     ' Position buttons
-    decCenterX = (1920 - (buttonDims.width + widthOffset)) / 2
-    incCenterX = (1920 / 2) + widthOffset
+    decCenterX = (1920 / 2) - (buttonDims.width * 2)
+    incCenterX = (1920 / 2) + (buttonDims.width)
 
-    decCenterY = (1080 - buttonDims.height) / 1.5
+    decCenterY = (1080 - buttonDims.height) / 1.3
     incCenterY = decCenterY
 
     m.decreaseButton.translation = [ decCenterX, decCenterY ]
     m.increaseButton.translation = [ incCenterX, decCenterY ]
 
-    ' Get application exit button
-    m.exitButton = m.top.findNode("exitAppButton")
-    m.exitButton.translation = [ 30, 30 ]
-
     ' Enable observers
     m.decreaseButton.observeField("buttonSelected", "decreaseFont")
     m.increaseButton.observeField("buttonSelected", "increaseFont")
-    m.exitButton.observeField("buttonSelected", "exitApplication")
     m.changeSize.observeField("buttonSelected", "changeButtonSelected")
     m.fontSelector.observeField("itemSelected", "fontItemSelected")
 
     m.fontSizeDisplay = m.top.findNode("fontSizeDisplay")
     m.fontSizeDisplay.text = m.font.size
     m.displayedSizeGroup = m.top.findNode("displayedSizeGroup")
-    m.displayedSizeGroup.translation = [1100, incCenterY]
+    m.displayedSizeGroup.translation = [(incCenterX - (buttonDims.width - 20)), incCenterY]
     m.currentFontLabel = m.top.findNode("currentFontLabel")
     m.currentFontLabel.font.size = 23
 
@@ -117,26 +112,13 @@ function increaseFont()
     m.fontSizeDisplay.text = m.font.size
 end function
 
-function exitApplication()
-    print "Exit the application"
-    m.top.parentNode.close()
-end function
-
 function onKeyEvent(key as String, press as Boolean) as Boolean
     handled = false
     if press then
         print "onKeyEvent() handler"
         if (key = "left") then
-            if (m.fontSelector.hasFocus()) then
-                m.exitButton.setFocus(true)
-                handled = true
-            end if
             if (m.changeSize.hasFocus()) then
                 m.fontSelector.setFocus(true)
-                handled = true
-            end if
-            if (m.decreaseButton.hasFocus()) then
-                m.exitButton.setFocus(true)
                 handled = true
             end if
             if (m.increaseButton.hasFocus()) then
@@ -153,10 +135,6 @@ function onKeyEvent(key as String, press as Boolean) as Boolean
                 m.changeSize.setFocus(true)
                 handled = true
             end if
-            if m.exitButton.hasFocus() then
-                m.fontSelector.setFocus(true)
-                handled = true
-            end if
         end if
         if (key = "up") then
             print "up key pressed"
@@ -170,10 +148,6 @@ function onKeyEvent(key as String, press as Boolean) as Boolean
             end if
         end if
         if (key = "down") then
-            if (m.exitButton.hasFocus()) then
-                m.decreaseButton.setFocus(true)
-                handled = true
-            end if
             if (m.changeSize.hasFocus()) then
                 m.increaseButton.setFocus(true)
                 handled = true
