@@ -35,7 +35,9 @@ function getFontList(path as String) as Object
     list = []
     contents = ListDir(path)
     for each file in contents
-        list.push(file)
+        if file <> ".DS_Store" then
+            list.push(file)
+        end if
     end for
     return list
 end function

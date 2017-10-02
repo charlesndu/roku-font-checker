@@ -75,7 +75,7 @@ end sub
 
 sub fontItemSelected()
     if m.top.fontlist <> invalid then
-        fontUri = "pkg:/fonts/" + m.top.fontlist[m.fontSelector.itemSelected + 1]
+        fontUri = "pkg:/fonts/" + m.top.fontlist[m.fontSelector.itemSelected]
         m.targetText.font = m.resetFont
         m.font.uri = fontUri
         m.targetText.font = m.font
